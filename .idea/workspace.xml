@@ -5,46 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8021d805-00f7-444d-8bd8-5c1aff2cee9e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/Calculadora.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/out/production/Calculadora/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Calculadora/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ContasFX/src/main/java/br/com/senac/contasfx/repository/Contas.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ContasFX/src/main/java/br/com/senac/contasfx/repository/Contas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/IdeaProjects.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade10.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade11.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade6.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade7.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade8.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade9.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/OlaMundoJava.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/RecebeVariaveis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Variaveis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/untitled.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/senac/com/sorveteriafx/model/Sorvete.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/senac/com/sorveteriafx/repository/Sorvetes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sorveteriafx.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sorveteriafx.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +17,14 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,7 +46,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/billc/Documents/Senac_Projetos/IntelliJ (Java)/Programas/ContasFX"
+    "last_opened_file_path": "C:/Users/willian.togni/intellij/ContasFX",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
