@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8021d805-00f7-444d-8bd8-5c1aff2cee9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/br/senac/com/sorveteriafx/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/Calculadora.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/out/production/Calculadora/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Calculadora/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/IdeaProjects.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade10.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade11.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade6.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade7.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade8.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Atividade9.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/OlaMundoJava.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/RecebeVariaveis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Variaveis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/untitled.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2S7qbwGj0InS14tgilHbrQh5xYT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8021d805-00f7-444d-8bd8-5c1aff2cee9e" name="Changes" comment="" />
+      <created>1688508045283</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1688508045283</updated>
+    </task>
+    <servers />
+  </component>
+</project>
