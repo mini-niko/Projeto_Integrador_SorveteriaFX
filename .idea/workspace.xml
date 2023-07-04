@@ -5,20 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8021d805-00f7-444d-8bd8-5c1aff2cee9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/br/senac/com/sorveteriafx/hello-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/Project.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Calculadora/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
@@ -29,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/../../Calculadora/out/production/Calculadora/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Calculadora/src/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ContasFX/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ContasFX/src/main/java/br/com/senac/contasfx/repository/Contas.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ContasFX/src/main/java/br/com/senac/contasfx/repository/Contas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/Project.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
@@ -56,6 +43,8 @@
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/RecebeVariaveis.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/src/Variaveis.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../IdeaProjects/untitled/untitled.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorveteriafx.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sorveteriafx.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +73,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/billc/Documents/Senac_Projetos/IntelliJ (Java)/Programas/ContasFX"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
