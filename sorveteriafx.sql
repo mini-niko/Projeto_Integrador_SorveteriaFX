@@ -5,6 +5,5 @@ CREATE TABLE sorvete(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
     sabor VARCHAR(100) NOT NULL,
     quantidade DOUBLE NOT NULL,
-    data_entrada DATE NOT NULL,
-    fornecedor VARCHAR(100) NOT NULL
+    data_entrada DATE NOT NULL
 )
