@@ -1,6 +1,7 @@
 module br.senac.com.sorveteriafx {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 /*
     opens br.senac.com.sorveteriafx.controller to javafx.fxml;
     exports br.senac.com.sorveteriafx.controller;
