@@ -3,8 +3,10 @@ package br.senac.com.sorveteriafx.service;
 import br.senac.com.sorveteriafx.model.Sorvete;
 import br.senac.com.sorveteriafx.repository.Sorvetes;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.sql.*;
 
@@ -22,7 +24,7 @@ public class SorvetesDBServices implements Sorvetes {
     private Connection conexao() {
         try {
             Class.forName(CLASS_DRIVER);
-            return DriverManager.getConnection();
+            return DriverManager.getConnection(CLASS_DRIVER, USUARIO, SENHA);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +122,7 @@ public class SorvetesDBServices implements Sorvetes {
         return sorvetes;
     }
 
-    private Sorvete extraiSorvete(ResultSet resultadoBusca) {
+    private Sorvete extraiSorvete(ResultSet resultadoBusca) throws SQLException, ParseException {
         Sorvete sorvete = new Sorvete();
         sorvete.setId(resultadoBusca.getInt(1));
         sorvete.setSabor(resultadoBusca.getString(2));

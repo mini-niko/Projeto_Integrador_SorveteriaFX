@@ -15,7 +15,7 @@ module br.senac.com.sorveteriafx {
     opens br.senac.com.sorveteriafx.service to javafx.fxml;
     exports br.senac.com.sorveteriafx.service;
 
+ */
     opens br.senac.com.sorveteriafx.view to javafx.fxml;
     exports br.senac.com.sorveteriafx.view;
- */
 }
