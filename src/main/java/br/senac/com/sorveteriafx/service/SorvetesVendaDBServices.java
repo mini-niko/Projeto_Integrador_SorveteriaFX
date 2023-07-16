@@ -16,7 +16,7 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     final String CLASS_DRIVER = "com.mysql.jdbc.Driver";
     final String INSERIR = "INSERT INTO sorvete_mov(id_sabor, quantidade, tipo_mov, data_mov, preco) VALUES(?, ?, ?, ?, ?)";
     final String BUSCAR_TODOS = "SELECT id_sabor, quantidade, tipo_mov DATE_FORMAT(data_mov, '%d/%m/%y'), preco FROM sorvete_mov";
-    final String ATUALIZAR = "UPDATE sorvete_mov SET id_sabor = ?, quantidade = ?, tipo_mov = ?, data_mov = SQL_TO_DATE(?, '')";
+    final String ATUALIZAR = "UPDATE sorvete_mov SET id_sabor = ?, quantidade = ?, tipo_mov = ?, data_mov = ?";
     final String APAGAR = "DELETE FROM sorvete_mov WHERE id = ?";
     final String FORMATO_DATA = "dd/MM/yyyy";
     final String FORMATO_DATA_SQL = "yyyy-MM-dd";
@@ -26,7 +26,7 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     private Connection conexao() {
         try {
             Class.forName(CLASS_DRIVER);
-            return DriverManager.getConnection(CLASS_DRIVER, USUARIO, SENHA);
+            return DriverManager.getConnection(URL_BANCO, USUARIO, SENHA);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
             ResultSet resultadoBusca = buscarTodos.executeQuery();
 
             while (resultadoBusca.next()) {
-                SorveteVenda sorveteVenda = extraiSorvete(resultadoBusca);
+                SorveteVenda sorveteVenda = extraiSorveteVenda(resultadoBusca);
                 sorveteVendas.add(sorveteVenda);
             }
             buscarTodos.close();
@@ -127,7 +127,7 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
         return sorveteVendas;
     }
 
-    private SorveteVenda extraiSorvete(ResultSet resultadoBusca) throws SQLException, ParseException {
+    private SorveteVenda extraiSorveteVenda(ResultSet resultadoBusca) throws SQLException, ParseException {
         SorveteVenda sorveteVenda = new SorveteVenda();
         sorveteVenda.setId(resultadoBusca.getInt(1));
         sorveteVenda.setSabor(resultadoBusca.getInt(2));
