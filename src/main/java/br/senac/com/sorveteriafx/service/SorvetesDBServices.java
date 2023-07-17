@@ -5,14 +5,13 @@ import br.senac.com.sorveteriafx.repository.Sorvetes;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SorvetesDBServices implements Sorvetes {
 
     final String USUARIO = "root";
     final String SENHA = "root";
     final String URL_BANCO = "jdbc:mysql://localhost:3306/senac_sorveteriafx";
-    final String CLASS_DRIVER = "com.mysql.jdbc.Driver";
+    final String CLASS_DRIVER = "com.mysql.cj.jdbc.Driver";
     final String INSERIR = "INSERT INTO sorvete(quantidade, sabor) VALUES(0.0, ?)";
     final String BUSCAR_TODOS = "SELECT * FROM sorvete";
     final String BUSCAR_UM_SABOR = "SELECT * FROM sorvete WHERE id = ?";
@@ -38,7 +37,7 @@ public class SorvetesDBServices implements Sorvetes {
     }
 
     @Override
-    public void alterarEstoque(int id, Double quantidade) {
+    public void alterarQuantidadeSorvete(int id, Double quantidade) {
         try {
             Double quantidadeAntiga = pegaQuantidade(id);
             Double quantidadeAtual = quantidadeAntiga + quantidadeAntiga;
@@ -58,7 +57,7 @@ public class SorvetesDBServices implements Sorvetes {
     }
 
     @Override
-    public void adicionarSabor(String sabor) {
+    public void adicionarSorvete(String sabor) {
         try {
             Connection con = conexao();
 
@@ -93,9 +92,10 @@ public class SorvetesDBServices implements Sorvetes {
         }
     }
 
+
     @Override
-    public List<Sorvete> buscarTodosOsSabores() {
-        List<Sorvete> sorvetes = new ArrayList<>();
+    public ArrayList<Sorvete> buscarTodosOsSorvetes() {
+        ArrayList<Sorvete> sorvetes = new ArrayList<>();
 
         try {
             Connection con = conexao();
@@ -119,9 +119,35 @@ public class SorvetesDBServices implements Sorvetes {
         return sorvetes;
     }
 
+    @Override
+    public ArrayList<String> buscarTodosOsSabores() {
+        ArrayList<String> sabores = new ArrayList<>();
+
+        try {
+            Connection con = conexao();
+
+            PreparedStatement buscarTodos = con.prepareStatement(BUSCAR_TODOS);
+            ResultSet resultadoBusca = buscarTodos.executeQuery();
+
+            while (resultadoBusca.next()) {
+                String sabor = resultadoBusca.getString(3);
+                sabores.add(sabor);
+            }
+            con.close();
+            buscarTodos.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar todos os sabores de sorvete.");
+            System.exit(0);
+        }
+
+        return sabores;
+    }
+
 
     @Override
-    public Sorvete buscarUmSabor(int id) {
+    public Sorvete buscarUmSorvete(int id) {
         Sorvete sorvete = new Sorvete();
         try {
             Connection con = conexao();
@@ -130,6 +156,30 @@ public class SorvetesDBServices implements Sorvetes {
             ResultSet resultadoBusca = buscarUm.executeQuery();
 
             sorvete = extraiSorvete(resultadoBusca);
+            buscarUm.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar o sabor de id: " + id);
+            System.exit(0);
+        }
+
+        return sorvete;
+    }
+
+    @Override
+    public String buscarUmSabor(int id) {
+        String sorvete = null;
+
+        try {
+            Connection con = conexao();
+            PreparedStatement buscarUm = con.prepareStatement(BUSCAR_UM_SABOR);
+            buscarUm.setInt(1, id);
+            ResultSet resultadoBusca = buscarUm.executeQuery();
+
+            resultadoBusca.next();
+            sorvete = resultadoBusca.getString(3);
             buscarUm.close();
             con.close();
         }

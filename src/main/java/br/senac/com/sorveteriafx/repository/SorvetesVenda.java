@@ -10,7 +10,7 @@ public interface SorvetesVenda {
     public void atualizarSorvete (SorveteVenda sorveteVenda);
     public void apagarSorvete (int id);
     public List<SorveteVenda> buscarTodosOsSorvetes();
-    public SorveteVenda buscarUmSorvete(int id);
+    public SorveteVenda buscarUmSorveteVenda(int id);
     public static SorvetesVenda getNewInstance(){
         return new SorvetesVendaDBServices();
     }

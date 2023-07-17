@@ -13,9 +13,9 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     final String USUARIO = "root";
     final String SENHA = "root";
     final String URL_BANCO = "jdbc:mysql://localhost:3306/senac_sorveteriafx";
-    final String CLASS_DRIVER = "com.mysql.jdbc.Driver";
+    final String CLASS_DRIVER = "com.mysql.cj.jdbc.Driver";
     final String INSERIR = "INSERT INTO sorvete_mov(id_sabor, quantidade, tipo_mov, data_mov, preco) VALUES(?, ?, ?, ?, ?)";
-    final String BUSCAR_TODOS = "SELECT id_sabor, quantidade, tipo_mov DATE_FORMAT(data_mov, '%d/%m/%y'), preco FROM sorvete_mov";
+    final String BUSCAR_TODOS = "SELECT id, id_sabor, quantidade, tipo_mov, DATE_FORMAT(data_mov, '%d/%m/%Y'), preco FROM sorvete_mov";
     final String ATUALIZAR = "UPDATE sorvete_mov SET id_sabor = ?, quantidade = ?, tipo_mov = ?, data_mov = ?";
     final String APAGAR = "DELETE FROM sorvete_mov WHERE id = ?";
     final String FORMATO_DATA = "dd/MM/yyyy";
@@ -140,7 +140,7 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     }
 
     @Override
-    public SorveteVenda buscarUmSorvete(int id) {
+    public SorveteVenda buscarUmSorveteVenda(int id) {
         return null;
     }
 }
