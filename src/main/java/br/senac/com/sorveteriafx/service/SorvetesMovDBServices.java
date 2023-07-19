@@ -1,7 +1,7 @@
 package br.senac.com.sorveteriafx.service;
 
-import br.senac.com.sorveteriafx.model.SorveteVenda;
-import br.senac.com.sorveteriafx.repository.SorvetesVenda;
+import br.senac.com.sorveteriafx.model.SorveteMov;
+import br.senac.com.sorveteriafx.repository.SorvetesMov;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-public class SorvetesVendaDBServices implements SorvetesVenda {
+public class SorvetesMovDBServices implements SorvetesMov {
     final String USUARIO = "root";
     final String SENHA = "root";
     final String URL_BANCO = "jdbc:mysql://localhost:3306/senac_sorveteriafx";
     final String CLASS_DRIVER = "com.mysql.cj.jdbc.Driver";
     final String INSERIR = "INSERT INTO sorvete_mov(id_sabor, quantidade, tipo_mov, data_mov, preco) VALUES(?, ?, ?, ?, ?)";
+    final String BUSCAR = "SELECT * FROM sorvete_mov WHERE id = ?";
     final String BUSCAR_TODOS = "SELECT id, id_sabor, quantidade, tipo_mov, DATE_FORMAT(data_mov, '%d/%m/%Y'), preco FROM sorvete_mov";
-    final String ATUALIZAR = "UPDATE sorvete_mov SET id_sabor = ?, quantidade = ?, tipo_mov = ?, data_mov = ?";
     final String APAGAR = "DELETE FROM sorvete_mov WHERE id = ?";
+    final String ATUALIZAR = "UPDATE sorvete_mov SET id_sabor = ?, quantidade = ?, tipo_mov = ?, data_mov = ?, preco = ? WHERE id = ?;";
     final String FORMATO_DATA = "dd/MM/yyyy";
     final String FORMATO_DATA_SQL = "yyyy-MM-dd";
     final SimpleDateFormat FORMATADOR = new SimpleDateFormat(FORMATO_DATA);
@@ -42,17 +43,17 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     }
 
     @Override
-    public void salvarSorvete(SorveteVenda sorveteVenda) {
+    public void salvarSorveteMov(SorveteMov sorveteMov) {
         try{
             Connection con = conexao();
 
             PreparedStatement salvar = con.prepareStatement(INSERIR);
-            String dateStr = FORMATADOR_SQL.format(sorveteVenda.getDataMov());
-            salvar.setInt(1, sorveteVenda.getSabor());
-            salvar.setDouble(2, sorveteVenda.getQuantidade());
-            salvar.setInt(3, sorveteVenda.getTipoMov());
+            String dateStr = FORMATADOR_SQL.format(sorveteMov.getDataMov());
+            salvar.setInt(1, sorveteMov.getSabor());
+            salvar.setDouble(2, sorveteMov.getQuantidade());
+            salvar.setInt(3, sorveteMov.getTipoMov());
             salvar.setString(4, dateStr);
-            salvar.setDouble(5, sorveteVenda.getPreco());
+            salvar.setDouble(5, sorveteMov.getPreco());
             salvar.executeUpdate();
             salvar.close();
             con.close();
@@ -65,30 +66,31 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     }
 
     @Override
-    public void atualizarSorvete(SorveteVenda sorveteVenda) {
+    public void atualizarSorveteMov(SorveteMov sorveteMovNovo) {
         try{
             Connection con = conexao();
-            PreparedStatement atualizar = con.prepareStatement(ATUALIZAR);
 
-            String dataStr = FORMATADOR_SQL.format(sorveteVenda.getDataMov());
-            atualizar.setInt(1, sorveteVenda.getSabor());
-            atualizar.setDouble(2, sorveteVenda.getQuantidade());
-            atualizar.setInt(3, sorveteVenda.getTipoMov());
-            atualizar.setString(4, dataStr);
-            atualizar.setDouble(5, sorveteVenda.getPreco());
-            atualizar.executeQuery();
-            atualizar.close();
+            PreparedStatement salvar = con.prepareStatement(ATUALIZAR);
+            String dateStr = FORMATADOR_SQL.format(sorveteMovNovo.getDataMov());
+            salvar.setInt(1, sorveteMovNovo.getSabor());
+            salvar.setDouble(2, sorveteMovNovo.getQuantidade());
+            salvar.setInt(3, sorveteMovNovo.getTipoMov());
+            salvar.setString(4, dateStr);
+            salvar.setDouble(5, sorveteMovNovo.getPreco());
+            salvar.setInt(6, sorveteMovNovo.getId());
+            salvar.executeUpdate();
+            salvar.close();
             con.close();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erro ao atualiazar o sorvete de id: " + sorveteVenda.getId());
+            System.out.println("Erro ao atualizar o sorvete de id: " + sorveteMovNovo.getId());
             System.exit(0);
         }
     }
 
     @Override
-    public void apagarSorvete(int id) {
+    public void apagarSorveteMov(int id) {
         try {
             Connection con = conexao();
             PreparedStatement apagar = con.prepareStatement(APAGAR);
@@ -104,8 +106,8 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
     }
 
     @Override
-    public List<SorveteVenda> buscarTodosOsSorvetes() {
-        List<SorveteVenda> sorveteVendas = new ArrayList<>();
+    public List<SorveteMov> buscarTodosOsSorvetesMov() {
+        List<SorveteMov> sorveteMovs = new ArrayList<>();
 
         try{
             Connection con = conexao();
@@ -113,8 +115,8 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
             ResultSet resultadoBusca = buscarTodos.executeQuery();
 
             while (resultadoBusca.next()) {
-                SorveteVenda sorveteVenda = extraiSorveteVenda(resultadoBusca);
-                sorveteVendas.add(sorveteVenda);
+                SorveteMov sorveteMov = extraiSorveteMov(resultadoBusca);
+                sorveteMovs.add(sorveteMov);
             }
             buscarTodos.close();
             con.close();
@@ -124,23 +126,39 @@ public class SorvetesVendaDBServices implements SorvetesVenda {
             System.out.println("Erro ao buscar todos os sorvetes");
             System.exit(0);
         }
-        return sorveteVendas;
+        return sorveteMovs;
     }
 
-    private SorveteVenda extraiSorveteVenda(ResultSet resultadoBusca) throws SQLException, ParseException {
-        SorveteVenda sorveteVenda = new SorveteVenda();
-        sorveteVenda.setId(resultadoBusca.getInt(1));
-        sorveteVenda.setSabor(resultadoBusca.getInt(2));
-        sorveteVenda.setQuantidade(resultadoBusca.getDouble(3));
-        sorveteVenda.setTipoMov(resultadoBusca.getInt(4));
-        sorveteVenda.setDataMov(FORMATADOR.parse(resultadoBusca.getString(5))) ;
-        sorveteVenda.setPreco(resultadoBusca.getDouble(6));
+    private SorveteMov extraiSorveteMov(ResultSet resultadoBusca) throws SQLException, ParseException {
+        SorveteMov sorveteMov = new SorveteMov();
+        sorveteMov.setId(resultadoBusca.getInt(1));
+        sorveteMov.setSabor(resultadoBusca.getInt(2));
+        sorveteMov.setQuantidade(resultadoBusca.getDouble(3));
+        sorveteMov.setTipoMov(resultadoBusca.getInt(4));
+        sorveteMov.setDataMov(FORMATADOR.parse(resultadoBusca.getString(5))) ;
+        sorveteMov.setPreco(resultadoBusca.getDouble(6));
 
-        return sorveteVenda;
+        return sorveteMov;
     }
 
     @Override
-    public SorveteVenda buscarUmSorveteVenda(int id) {
-        return null;
+    public SorveteMov buscarUmSorveteMov(int id) {
+        SorveteMov sorveteMov = null;
+
+        try {
+            Connection con = conexao();
+
+            PreparedStatement buscar = con.prepareStatement(BUSCAR);
+            buscar.setInt(1, id);
+            sorveteMov = extraiSorveteMov(buscar.executeQuery());
+            buscar.close();
+            con.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar o sorveteMov de id: " + id);
+        }
+
+        return sorveteMov;
     }
 }

@@ -2,7 +2,7 @@ package br.senac.com.sorveteriafx.model;
 
 import java.util.Date;
 
-public class SorveteVenda {
+public class SorveteMov {
 
     private int id;
     private int sabor;

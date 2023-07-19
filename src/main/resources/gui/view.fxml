@@ -117,10 +117,10 @@
                         </GridPane>
                         <HBox alignment="CENTER" prefHeight="25.0" prefWidth="478.0" spacing="30.0">
                            <children>
-                              <Button fx:id="btnSalvar" mnemonicParsing="false" text="Salvar" />
-                              <Button fx:id="btnAtualizar" mnemonicParsing="false" text="Atualizar" />
-                              <Button fx:id="btnApagar" mnemonicParsing="false" text="Apagar" />
-                              <Button fx:id="btnLimpar" mnemonicParsing="false" text="Limpar" />
+                              <Button fx:id="btnSalvar" onAction="#salvar" mnemonicParsing="false" text="Salvar" />
+                              <Button fx:id="btnAtualizar" onAction="#atualizar" mnemonicParsing="false" text="Atualizar" />
+                              <Button fx:id="btnApagar" mnemonicParsing="false" onAction="#apagar" text="Apagar" />
+                              <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#limpar" text="Limpar" />
                            </children>
                         </HBox>
                      </children>

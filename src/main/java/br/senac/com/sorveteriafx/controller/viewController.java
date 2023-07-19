@@ -1,39 +1,40 @@
 package br.senac.com.sorveteriafx.controller;
 
 import br.senac.com.sorveteriafx.model.Sorvete;
-import br.senac.com.sorveteriafx.model.SorveteVenda;
+import br.senac.com.sorveteriafx.model.SorveteMov;
 import br.senac.com.sorveteriafx.repository.Sorvetes;
-import br.senac.com.sorveteriafx.repository.SorvetesVenda;
-import br.senac.com.sorveteriafx.service.SorvetesDBServices;
-import javafx.beans.property.SimpleIntegerProperty;
+import br.senac.com.sorveteriafx.repository.SorvetesMov;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.converter.NumberStringConverter;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
 public class viewController implements Initializable {
+
+    //Abaixo estão as nossas variáveis para a tabela de movimento
     @FXML
-    private TableView<SorveteVenda> tblSorveteVenda;
+    private TableView<SorveteMov> tblSorveteVenda;
     @FXML
-    private TableColumn<SorveteVenda, String> colSabor;
+    private TableColumn<SorveteMov, String> colSabor;
     @FXML
-    private TableColumn<SorveteVenda, String> colTipoMov;
+    private TableColumn<SorveteMov, String> colTipoMov;
     @FXML
-    private TableColumn<SorveteVenda, String> colQuantidade;
+    private TableColumn<SorveteMov, String> colQuantidade;
     @FXML
-    private TableColumn<SorveteVenda, String> colDataVenda;
+    private TableColumn<SorveteMov, String> colDataVenda;
     @FXML
-    private TableColumn<SorveteVenda, String> colValor;
+    private TableColumn<SorveteMov, String> colValor;
+
+    //Abaixo estão as variáveis dos nossos campos de inserção de dados
 
     @FXML
     private ChoiceBox<String> cbSabor;
@@ -46,6 +47,8 @@ public class viewController implements Initializable {
     @FXML
     private TextField txtValor;
 
+    //Abaixo estão nossas variáveis dos nossos botões
+
     @FXML
     private Button btnSalvar;
     @FXML
@@ -55,20 +58,25 @@ public class viewController implements Initializable {
     @FXML
     private Button btnLimpar;
 
-    private SorvetesVenda sorvetesVendas;
-    private Sorvetes sorvetes;
+    //Abaixo estão nossas variáveis de modelos utilizados
 
+    private SorvetesMov sorvetesMov;
+    private Sorvetes sorvetes;
     private List<String> tipoMovList = new ArrayList<String>(Arrays.asList("Venda", "Compra", "Perda"));
+
+    //Abaixo estão os métodos utilizados para configuração da nossa aplicação, como tabela e dados
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sorvetes = Sorvetes.getNewInstance();
-        sorvetesVendas = SorvetesVenda.getNewInstance();
+        sorvetesMov = SorvetesMov.getNewInstance();
 
         cbSabor.setItems(FXCollections.observableList(sorvetes.buscarTodosOsSabores()));
         cbTipoMov.setItems(FXCollections.observableList(tipoMovList));
 
         dpDataVenda.setEditable(false);
+        txtQuantidade.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        txtValor.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
         configuraTela();
         configuraColunas();
@@ -123,6 +131,76 @@ public class viewController implements Initializable {
     }
 
     private void atualizaDados() {
-        tblSorveteVenda.getItems().setAll(sorvetesVendas.buscarTodosOsSorvetes());
+        tblSorveteVenda.getItems().setAll(sorvetesMov.buscarTodosOsSorvetesMov());
+    }
+
+    //Abaixo estão os métodos utilizados para trabalhar com os campos de inserção de dados
+
+    public void pegaValores(SorveteMov sorveteMov) {
+
+        int saborId = pegaIdSabor(cbSabor.getValue());
+        int movTipoId = tipoMovList.indexOf(cbTipoMov.getValue());
+        Double quantidade = Double.valueOf(txtQuantidade.getText());
+        Date dataMov = pegaData();
+        Double valor = Double.valueOf(txtQuantidade.getText());
+
+        sorveteMov.setSabor(saborId);
+        sorveteMov.setTipoMov(movTipoId);
+        sorveteMov.setQuantidade(quantidade);
+        sorveteMov.setDataMov(dataMov);
+        sorveteMov.setPreco(valor);
+    }
+
+    private Date pegaData() {
+        LocalDateTime time = dpDataVenda.getValue().atStartOfDay();
+        return Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    private int pegaIdSabor(String sabor) {
+        int id = -1;
+        List<Sorvete> sorveteList = sorvetes.buscarTodosOsSorvetes();
+
+        for(Sorvete sorvete : sorveteList) {
+            if(sorvete.getSabor().matches(sabor)) {
+                id = sorvete.getId();
+            }
+        }
+        return id;
+    }
+
+    //Abaixo estão os métodos ativados por botões
+    @FXML
+    private void salvar() {
+        SorveteMov sorveteMov = new SorveteMov();
+        pegaValores(sorveteMov);
+        System.out.println(sorveteMov.getSabor());
+
+        sorvetesMov.salvarSorveteMov(sorveteMov);
+        atualizaDados();
+    }
+
+    @FXML
+    private void atualizar() {
+        SorveteMov sorveteMov = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue();
+        sorvetesMov.atualizarSorveteMov(sorveteMov);
+
+        atualizaDados();
+    }
+
+    @FXML
+    private void limpar() {
+        tblSorveteVenda.setSelectionModel(null);
+        cbSabor.setValue(null);
+        cbTipoMov.setValue(null);
+        txtQuantidade.setText("");
+        dpDataVenda.setValue(null);
+        txtQuantidade.setText("");
+    }
+
+    @FXML
+    private void apagar() {
+        int id = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue().getId();
+        sorvetesMov.apagarSorveteMov(id);
+        atualizaDados();
     }
 }
