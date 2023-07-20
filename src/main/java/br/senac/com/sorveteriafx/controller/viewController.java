@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -90,10 +92,13 @@ public class viewController implements Initializable {
                         LocalDate data = null;
                         data = n.getDataMov().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+                        System.out.println(String.format(Locale.US, "%.2f", n.getPreco()));
+
                         cbSabor.setValue(sorvetes.buscarUmSabor(n.getSabor()));
                         cbTipoMov.setValue(tipoMovList.get(n.getTipoMov()));
-                        txtQuantidade.setText(n.getQuantidade().toString());
+                        txtQuantidade.setText(Double.toString(n.getPreco()).replace(".", ","));
                         dpDataVenda.setValue(data);
+                        txtValor.setText(Double.toString(n.getPreco()).replace(".", ","));
                     }
                 }
         );
@@ -138,11 +143,19 @@ public class viewController implements Initializable {
 
     public void pegaValores(SorveteMov sorveteMov) {
 
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.getDefault());
+        dfs.setDecimalSeparator('.');
+
+        DecimalFormat dfValor = new DecimalFormat("########.00", dfs);
+        DecimalFormat dfQuantidade = new DecimalFormat("########.000", dfs);
+
         int saborId = pegaIdSabor(cbSabor.getValue());
         int movTipoId = tipoMovList.indexOf(cbTipoMov.getValue());
-        Double quantidade = Double.valueOf(txtQuantidade.getText());
+        Double quantidade = Double.valueOf(txtQuantidade.getText().replace(".", "").replaceFirst(",", "."));
+        quantidade = Double.valueOf(dfQuantidade.format(quantidade));
         Date dataMov = pegaData();
-        Double valor = Double.valueOf(txtQuantidade.getText());
+        Double valor = Double.valueOf(txtValor.getText().replace(".", "").replaceFirst(",", "."));
+        valor = Double.valueOf(dfValor.format(valor));
 
         sorveteMov.setSabor(saborId);
         sorveteMov.setTipoMov(movTipoId);
@@ -173,7 +186,6 @@ public class viewController implements Initializable {
     private void salvar() {
         SorveteMov sorveteMov = new SorveteMov();
         pegaValores(sorveteMov);
-        System.out.println(sorveteMov.getSabor());
 
         sorvetesMov.salvarSorveteMov(sorveteMov);
         atualizaDados();
@@ -182,6 +194,7 @@ public class viewController implements Initializable {
     @FXML
     private void atualizar() {
         SorveteMov sorveteMov = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue();
+        pegaValores(sorveteMov);
         sorvetesMov.atualizarSorveteMov(sorveteMov);
 
         atualizaDados();
@@ -189,12 +202,12 @@ public class viewController implements Initializable {
 
     @FXML
     private void limpar() {
-        tblSorveteVenda.setSelectionModel(null);
+        tblSorveteVenda.getSelectionModel().clearSelection();
         cbSabor.setValue(null);
         cbTipoMov.setValue(null);
         txtQuantidade.setText("");
         dpDataVenda.setValue(null);
-        txtQuantidade.setText("");
+        txtValor.setText("");
     }
 
     @FXML

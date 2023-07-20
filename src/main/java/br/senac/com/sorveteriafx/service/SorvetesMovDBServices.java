@@ -84,7 +84,7 @@ public class SorvetesMovDBServices implements SorvetesMov {
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erro ao atualizar o sorvete de id: " + sorveteMovNovo.getId());
+            System.out.println("Erro ao atualizar um sorvete");
             System.exit(0);
         }
     }
