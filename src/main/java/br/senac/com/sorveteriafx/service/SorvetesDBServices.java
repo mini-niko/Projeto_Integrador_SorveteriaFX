@@ -26,7 +26,7 @@ public class SorvetesDBServices implements Sorvetes {
         catch (Exception e) {
             e.printStackTrace();
             if(e instanceof ClassNotFoundException) {
-                System.out.println("Verifique se o Driver do Banco de Dados está no ClassPath do projeto");
+                System.out.println("Verifique se o Driver do Banco de Dados está carregado corretamente");
             }
             else {
                 System.out.println("Verifique se o Banco de Dados está rodando e se os dados de conexão estão corretos");
@@ -37,14 +37,16 @@ public class SorvetesDBServices implements Sorvetes {
     }
 
     @Override
-    public void alterarQuantidadeSorvete(int id, Double quantidade) {
+    public void alterarQuantidadeSorvete(int id, Double quantidadeParaAlterar) {
         try {
             Double quantidadeAntiga = pegaQuantidade(id);
-            Double quantidadeAtual = quantidadeAntiga + quantidadeAntiga;
+            Double quantidadeAtual = quantidadeAntiga + quantidadeParaAlterar;
 
             Connection con = conexao();
             PreparedStatement alterar = con.prepareStatement(ALTERAR_QUANTIDADE);
             alterar.setDouble(1, quantidadeAtual);
+            alterar.setInt(2, id);
+
             alterar.executeUpdate();
             con.close();
             alterar.close();
@@ -154,6 +156,7 @@ public class SorvetesDBServices implements Sorvetes {
             PreparedStatement buscarUm = con.prepareStatement(BUSCAR_UM_SABOR);
             buscarUm.setInt(1, id);
             ResultSet resultadoBusca = buscarUm.executeQuery();
+            resultadoBusca.next();
 
             sorvete = extraiSorvete(resultadoBusca);
             buscarUm.close();
@@ -201,6 +204,7 @@ public class SorvetesDBServices implements Sorvetes {
             PreparedStatement pegarValor = con.prepareStatement(BUSCAR_UM_SABOR);
             pegarValor.setInt(1, id);
             ResultSet resultadoBusca = pegarValor.executeQuery();
+            resultadoBusca.next();
             quantidade =  resultadoBusca.getDouble(2);
         }
         catch(Exception e) {

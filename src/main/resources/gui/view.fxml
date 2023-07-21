@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="br.senac.com.sorveteriafx.controller.viewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.senac.com.sorveteriafx.controller.viewController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -52,7 +52,7 @@
                      <children>
                         <Label text="Movimento">
                            <font>
-                              <Font name="Nirmala UI" size="45.0" />
+                              <Font name="Nirmala UI Bold" size="45.0" />
                            </font>
                         </Label>
                         <TableView fx:id="tblSorveteVenda" prefHeight="298.0" prefWidth="781.0">
@@ -117,8 +117,8 @@
                         </GridPane>
                         <HBox alignment="CENTER" prefHeight="25.0" prefWidth="478.0" spacing="30.0">
                            <children>
-                              <Button fx:id="btnSalvar" onAction="#salvar" mnemonicParsing="false" text="Salvar" />
-                              <Button fx:id="btnAtualizar" onAction="#atualizar" mnemonicParsing="false" text="Atualizar" />
+                              <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+                              <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#atualizar" text="Atualizar" />
                               <Button fx:id="btnApagar" mnemonicParsing="false" onAction="#apagar" text="Apagar" />
                               <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#limpar" text="Limpar" />
                            </children>
@@ -131,17 +131,36 @@
           </Tab>
             <Tab text="Estoque">
                <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
                         <Label text="Estoque">
                            <font>
-                              <Font name="Nirmala UI" size="45.0" />
+                              <Font name="Nirmala UI Bold" size="45.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="40.0" />
+                           </VBox.margin>
                         </Label>
-                        <TableView prefHeight="355.0" prefWidth="451.0" VBox.vgrow="SOMETIMES">
+                        <HBox prefHeight="9.0" prefWidth="600.0">
+                           <children>
+                              <Label contentDisplay="RIGHT" graphicTextGap="5.0" text="Saldo">
+                                 <graphic>
+                                    <TextField fx:id="txtSaldo" prefHeight="31.0" prefWidth="139.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </TextField>
+                                 </graphic>
+                                 <font>
+                                    <Font name="Nirmala UI" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tblSorveteEstoque" prefHeight="355.0" prefWidth="451.0" VBox.vgrow="SOMETIMES">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="Sabor" />
-                              <TableColumn prefWidth="75.0" text="Quantidade (L)" />
+                              <TableColumn fx:id="colSaborEstoque" prefWidth="75.0" text="Sabor" />
+                              <TableColumn fx:id="colQuantEstoque" prefWidth="75.0" text="Quantidade (L)" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="50.0" />

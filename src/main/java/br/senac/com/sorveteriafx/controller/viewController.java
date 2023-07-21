@@ -2,6 +2,7 @@ package br.senac.com.sorveteriafx.controller;
 
 import br.senac.com.sorveteriafx.model.Sorvete;
 import br.senac.com.sorveteriafx.model.SorveteMov;
+import br.senac.com.sorveteriafx.repository.SaldoInterface;
 import br.senac.com.sorveteriafx.repository.Sorvetes;
 import br.senac.com.sorveteriafx.repository.SorvetesMov;
 import javafx.beans.property.SimpleStringProperty;
@@ -36,6 +37,16 @@ public class viewController implements Initializable {
     @FXML
     private TableColumn<SorveteMov, String> colValor;
 
+    //Abaixo estão as variáveis para a tabela de saldo de sorvetes
+    @FXML
+    private TableView<Sorvete> tblSorveteEstoque;
+    @FXML
+    private TableColumn<Sorvete, String> colSaborEstoque;
+    @FXML
+    private TableColumn<Sorvete, String> colQuantEstoque;
+    @FXML
+    private TextField txtSaldo;
+
     //Abaixo estão as variáveis dos nossos campos de inserção de dados
 
     @FXML
@@ -64,7 +75,8 @@ public class viewController implements Initializable {
 
     private SorvetesMov sorvetesMov;
     private Sorvetes sorvetes;
-    private List<String> tipoMovList = new ArrayList<String>(Arrays.asList("Venda", "Compra", "Perda"));
+    private SaldoInterface saldo;
+    private List<String> tipoMovList = new ArrayList<String>(Arrays.asList("Venda", "Compra"));
 
     //Abaixo estão os métodos utilizados para configuração da nossa aplicação, como tabela e dados
 
@@ -72,11 +84,14 @@ public class viewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sorvetes = Sorvetes.getNewInstance();
         sorvetesMov = SorvetesMov.getNewInstance();
+        saldo = SaldoInterface.getNewInstance();
 
         cbSabor.setItems(FXCollections.observableList(sorvetes.buscarTodosOsSabores()));
         cbTipoMov.setItems(FXCollections.observableList(tipoMovList));
 
         dpDataVenda.setEditable(false);
+        txtSaldo.setEditable(false);
+
         txtQuantidade.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         txtValor.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
@@ -91,8 +106,6 @@ public class viewController implements Initializable {
                     if(n != null) {
                         LocalDate data = null;
                         data = n.getDataMov().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-                        System.out.println(String.format(Locale.US, "%.2f", n.getPreco()));
 
                         cbSabor.setValue(sorvetes.buscarUmSabor(n.getSabor()));
                         cbTipoMov.setValue(tipoMovList.get(n.getTipoMov()));
@@ -133,15 +146,30 @@ public class viewController implements Initializable {
 
             return new SimpleStringProperty(precoTxt);
         });
+
+        colSaborEstoque.setCellValueFactory(cellData -> {
+            String sabor = cellData.getValue().getSabor();
+            return new SimpleStringProperty(sabor);
+        });
+        colQuantEstoque.setCellValueFactory(cellData -> {
+            Double quantidade = cellData.getValue().getQuantidade();
+            String quantidadeTxt = String.format("%.3fL", quantidade);
+            return new SimpleStringProperty(quantidadeTxt);
+        });
     }
 
     private void atualizaDados() {
         tblSorveteVenda.getItems().setAll(sorvetesMov.buscarTodosOsSorvetesMov());
+        tblSorveteEstoque.getItems().setAll(sorvetes.buscarTodosOsSorvetes());
+        if(saldo.buscarSaldo() < 0)
+            txtSaldo.setText(String.format("-R$%.2f", (saldo.buscarSaldo() * -1)).replace(".", ","));
+        else
+            txtSaldo.setText(String.format("R$%.2f", saldo.buscarSaldo()).replace(".", ","));
     }
 
     //Abaixo estão os métodos utilizados para trabalhar com os campos de inserção de dados
 
-    public void pegaValores(SorveteMov sorveteMov) {
+    private void pegaValores(SorveteMov sorveteMov) {
 
         DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.getDefault());
         dfs.setDecimalSeparator('.');
@@ -181,23 +209,114 @@ public class viewController implements Initializable {
         return id;
     }
 
+    private void chamarAlerta(Alert.AlertType tipoAlerta , String titulo, String subtitulo, String mensagem) {
+        Alert alerta = new Alert(tipoAlerta);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(subtitulo);
+        alerta.setContentText(mensagem);
+
+        alerta.showAndWait();
+    }
+
+    private boolean chamarAlertaConfirmacao(String titulo, String subtitulo, String mensagem) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(subtitulo);
+        alerta.setContentText(mensagem);
+
+        Optional<ButtonType> resultado = alerta.showAndWait();
+
+        if(resultado.get() == ButtonType.OK)
+            return true;
+        else
+            return false;
+    }
+
+    private boolean camposCheios() {
+        if(cbSabor.getValue() == null) return false;
+        if(cbTipoMov.getValue() == null) return false;
+        if(txtQuantidade.getText().isEmpty() || Double.valueOf(txtQuantidade.getText()) <= 0.0  ) return false;
+        if(txtValor.getText().isEmpty() || Double.valueOf(txtValor.getText()) <= 0.0) return false;
+        if((dpDataVenda.getValue()) == null) return false;
+
+        return true;
+    }
+
+    private boolean sorveteMovSelecionado() {
+        if(tblSorveteVenda.getSelectionModel().isEmpty()) return false;
+        return true;
+    }
+
     //Abaixo estão os métodos ativados por botões
     @FXML
     private void salvar() {
-        SorveteMov sorveteMov = new SorveteMov();
-        pegaValores(sorveteMov);
+        if(camposCheios()) {
+            SorveteMov sorveteMov = new SorveteMov();
+            pegaValores(sorveteMov);
 
-        sorvetesMov.salvarSorveteMov(sorveteMov);
-        atualizaDados();
+            Double quantidadeAntiga = sorvetes.buscarUmSorvete(sorveteMov.getSabor()).getQuantidade();
+            Double quantidadeNova = sorveteMov.getQuantidade();
+
+            if((quantidadeAntiga - quantidadeNova) < 0 && sorveteMov.getTipoMov() == 0) {
+                chamarAlerta(Alert.AlertType.ERROR, "Erro ao salvar movimento", "Quantidade inserida é maior que a disponível no estoque","Diminua a quantidade do sorvete no movimento.");
+            }
+            else {
+                switch (sorveteMov.getTipoMov()) {
+                    case 0:
+                        if((quantidadeAntiga - quantidadeNova) < 0) {
+                            chamarAlerta(Alert.AlertType.ERROR, "Erro ao salvar movimento", "Quantidade inserida é maior que a disponível no estoque","Diminua a quantidade do sorvete no movimento.");
+                        }
+                        else {
+                            saldo.atualizarSaldo(sorveteMov.getPreco());
+                            sorvetes.alterarQuantidadeSorvete(sorveteMov.getSabor(), (sorveteMov.getQuantidade() * -1));
+                        }
+                        break;
+                    case 1:
+                        //Saldo -, Estoque+
+                        saldo.atualizarSaldo((sorveteMov.getPreco() * -1));
+                        sorvetes.alterarQuantidadeSorvete(sorveteMov.getSabor(), (sorveteMov.getQuantidade()));
+                        break;
+                }
+                sorvetesMov.salvarSorveteMov(sorveteMov);
+                atualizaDados();
+            }
+        }
+        else {
+            chamarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro ao salvar movimento",
+                    "Falta de informações",
+                    "Preencha todas as informações corretamente"
+            );
+        }
+
     }
 
     @FXML
     private void atualizar() {
-        SorveteMov sorveteMov = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue();
-        pegaValores(sorveteMov);
-        sorvetesMov.atualizarSorveteMov(sorveteMov);
+        if(camposCheios() && sorveteMovSelecionado()) {
+            SorveteMov sorveteMov = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue();
+            pegaValores(sorveteMov);
+            sorvetesMov.atualizarSorveteMov(sorveteMov);
 
-        atualizaDados();
+            atualizaDados();
+        }
+        else if(!(sorveteMovSelecionado())) {
+            chamarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro ao atualizar movimento",
+                    "Movimento não selecionado",
+                    "Selecione um movimento para atualizar"
+            );
+        }
+        else if(!(camposCheios())) {
+            chamarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro ao atualizar movimento",
+                    "Falta de informações",
+                    "Preencha todas as informações corretamente!"
+            );
+        }
     }
 
     @FXML
@@ -212,8 +331,31 @@ public class viewController implements Initializable {
 
     @FXML
     private void apagar() {
-        int id = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue().getId();
-        sorvetesMov.apagarSorveteMov(id);
-        atualizaDados();
+        if(sorveteMovSelecionado()) {
+            boolean confirmar = chamarAlertaConfirmacao("Confirmação", "Confirmação para apagar movimento", "Você realmente deseja apagar este movimento? (Esta ação não poderá ser desfeita)");
+            if(confirmar) {
+                SorveteMov sorveteMov = tblSorveteVenda.getSelectionModel().selectedItemProperty().getValue();
+                switch (sorveteMov.getTipoMov()) {
+                    case 0:
+                        saldo.atualizarSaldo((sorveteMov.getPreco() * -1));
+                        sorvetes.alterarQuantidadeSorvete(sorveteMov.getSabor(), (sorveteMov.getQuantidade()));
+                        break;
+                    case 1:
+                        saldo.atualizarSaldo(sorveteMov.getPreco());
+                        sorvetes.alterarQuantidadeSorvete(sorveteMov.getSabor(), (sorveteMov.getQuantidade() * -1));
+                        break;
+                }
+                sorvetesMov.apagarSorveteMov(sorveteMov.getId());
+                atualizaDados();
+            }
+        }
+        else {
+            chamarAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro ao apagar conta",
+                    "Movimento não selecionado",
+                    "Selecione um movimento para apagá-lo"
+            );
+        }
     }
 }
