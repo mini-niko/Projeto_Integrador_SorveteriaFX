@@ -23,4 +23,4 @@ Assim que estiver baixado e configurado, você precisará criar um banco de dado
 1) Abra o arquivo "sorveteriafx.sql" na pasta principal
 2) Execute o arquivo com o MySql Workbench
 
-Com o banco de dados criado, você poderá executar o projeto. 
+Com o banco de dados criado, você poderá executar o projeto, indo no caminho src/main/java/br/senac/com/sorveteriafx/view/ e executando o App.java 
